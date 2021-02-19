@@ -1,0 +1,24 @@
+{% load i18n %}
+<head>
+    <title>工时录入</title>
+    <link rel="stylesheet" href="/static/admin/css/base.css" type="text/css" />
+</head>
+<body>
+    <div align="center">
+      <h4>工时信息录入</h4>
+      <form action="{% url 'gstj_doinput' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+        <label>工作类型:&emsp;&emsp;</label><select name="type">{% for i in typelist %}<option value ="{{ i }}">{{ i }}</option>{% endfor %}</select></br>
+        <label>提 交 人:&emsp;&emsp;</label><select name="name">{% for i in workerlist %}<option value ="{{ i.name }}">{{ i.name }}</option>{% endfor %}</select></br>
+        <label>当前状态:&emsp;&emsp;</label><select name="status">{% for i in statuslist %}<option value ="{{ i }}">{{ i }}</option>{% endfor %}</select></br>
+        <label>PMS/BUG:&emsp;&emsp;</label><input type="text" name="taskid" /></br>
+        <label>耗用时间:&emsp;&emsp;</label><input type="text" name="usedtime" /></br>
+        <label>所属项目:&emsp;&emsp;</label><input type="text" name="project" /></br>
+        <label>文档链接:&emsp;&emsp;</label><input type="text" name="link" /></br>
+        <label>详细描述:</label></br><textarea rows="5" cols="35" name="detail" placeholder="type detail here..."></textarea></br>
+        <p><input type="submit" value="保存" /></p>
+      </form>
+      <a href=/stat>工时统计</a>
+    </div>
+    <br/><hr/>
+    <div align="center"><font size="2">Written & Maintained by Leon. All rights reserved.</font></div>
+</body>
