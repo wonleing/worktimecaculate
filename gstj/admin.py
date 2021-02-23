@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Worker,Record
+from .models import Worker,Record,Projects
 class WorkerAdmin(admin.ModelAdmin):
     list_filter = ('group', 'location', 'title', 'date')
     list_display = ('workerid', 'name', 'group', 'location', 'title', 'date')
@@ -11,3 +11,4 @@ class RecordAdmin(admin.ModelAdmin):
 
 admin.site.register(Worker, WorkerAdmin)
 admin.site.register(Record, RecordAdmin)
+admin.site.register(Projects)

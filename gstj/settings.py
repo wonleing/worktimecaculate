@@ -76,8 +76,14 @@ WSGI_APPLICATION = 'gstj.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'beiyan',
+        'USER': 'root',
+        'PASSWORD': 'deepin',
+        'HOST': '127.0.0.1',
+        'PORT': 3306,
     }
 }
 
@@ -114,11 +120,19 @@ USE_L10N = True
 
 USE_TZ = False
 
-
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-
+STATIC_ROOT = ''
 STATIC_URL = '/static/'
-#STATICFILES_DIRS = (
-#    os.path.join(os.path.dirname(__file__), '../static')
-#)
+STATICFILES_DIRS = (
+    os.path.join(os.path.dirname(__file__), '../static'),
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+)
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+)

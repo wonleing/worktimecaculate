@@ -1,0 +1,57 @@
+{% load i18n %}
+{% load static %}
+<head>
+    <title>工时统计系统</title>
+    <link rel="apple-touch-icon" href="{% static 'pic/index_logo.jpg' %}"/>
+    <link rel="stylesheet" href="{% static 'admin/css/base.css' %}" type="text/css" />
+</head>
+<body> 
+  <center>
+  {% if login_user %}
+    <div style="float:left;"><a href="/">工时录入</a> | <a href="/stat">工时统计</a></div>
+    <div style="float:right;"><b>当前用户: <a style="text-decoration:underline;color:#00A0E9;" onclick="changepwd();">{{ login_user.name }}</a></b> | <a href="{% url 'gstj_logout' %}"><b>登出</b></a></br>
+    </div></br> 
+    {% block pagebody %}
+    {% endblock %}
+  <div id="cover" style="display:none;position:absolute;z-index:3;width:300px;height:200px;position:absolute;left:40%;top:40%;background-color:gray;">
+    <form id="changepwd" action="{% url 'gstj_changepwd' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+      <input type="hidden" name="uid" value="{{ login_user.workerid }}"/>
+      <h4>修改密码</h4>
+      <h4>新的密码<input type="text" name="newpwd" style="display:inline;text-align:center;" size="15"/></h4>
+      <h4>再次确认<input type="text" name="againpwd" style="display:inline;text-align:center;" size="15"/></h4>
+      <p><font color="white" onclick="closewindow();">关闭窗口</font>&emsp;<button id="submit">确认修改</button></p>
+    </form>
+  </div>
+  <script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>
+  <script>
+  function changepwd(){
+    document.getElementById("cover").style.display="block";
+  }
+  function closewindow(){
+    document.getElementById("cover").style.display="none";
+    return false;
+  }
+  $(document).ready(function () {
+    var form = $('#changepwd');
+    form.submit(function () {
+      $.post(form.attr("action"),
+        form.serialize(),
+        function (data) {
+          alert(data);
+        });
+        document.getElementById("cover").style.display="none";
+        return false;
+     });
+  });
+  </script>
+  {% else %}
+      <form action="{% url 'gstj_dologin' %}" method="post" enctype="multipart/form-data">{% csrf_token %}</br>
+        员工号:<input type="text" name="account" />
+        密  码:<input type="password" name="password" />
+        <input type="submit" value="登录" />
+      </form>
+  {% endif %}
+    <br/><hr/>
+    <div align="center"><font size="2">Written & Maintained by Leon. All rights reserved.</font></div>
+  </center>
+</body>

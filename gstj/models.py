@@ -8,12 +8,23 @@ class Worker(models.Model):
     location = models.CharField('地区', max_length=50L, default='北京')
     title = models.CharField('职级', max_length=50L, default='初级工程师')
     date = models.DateTimeField('创建日期', auto_now=True)
+    password = models.CharField('密码', max_length=50L, default='123321')
     class Meta:
         verbose_name_plural = '员工表'
         verbose_name = '员工表'
         db_table = 'gstj_worker'
     def __unicode__(self):
         return self.workerid
+
+class Projects(models.Model):
+    project = models.CharField('项目名称', max_length=50L)
+    desc = models.CharField('项目描述', max_length=500L, blank=True)
+    class Meta:
+        verbose_name_plural = '项目列表'
+        verbose_name = '项目列表'
+        db_table = 'gstj_projects'
+    def __unicode__(self):
+        return self.project
 
 class Record(models.Model):
     recordid = models.AutoField('记录号', primary_key=True)
@@ -22,9 +33,9 @@ class Record(models.Model):
     name = models.CharField('提交人', max_length=50L)
     usedtime = models.FloatField('耗时', default=0)
     status = models.CharField('状态', max_length=50L)
-    project = models.CharField('所属项目', max_length=50L, blank=True)
+    project = models.CharField('所属项目', max_length=50L, default='不属于项目')
     link = models.CharField('文档链接', max_length=500L, blank=True)
-    detail = models.CharField('详细描述', max_length=500L, blank=True)
+    detail = models.CharField('工作内容', max_length=500L, blank=True)
     date = models.DateTimeField('提交日期', auto_now=True)
     class Meta:
         verbose_name_plural = '工时记录'

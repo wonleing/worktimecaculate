@@ -1,12 +1,8 @@
-{% load i18n %}
-<head>
-    <title>工时统计系统</title>
-    <link rel="stylesheet" href="/static/admin/css/base.css" type="text/css" />
-</head>
-<body>
-  <center>
-  <h2>请选择要统计的组:{% for group in groups %}<a href='stat?group={{ group }}'>{{ group }}</a>&emsp;{% endfor %}</br>
-  <h4>{{ year }}年{{ month }}月{{ group }}部门工时统计</h4>
+{% extends "base.html" %}
+{% block pagebody %}
+  <h2>以组统计:{% for group in groups %}<a href='stat?group={{ group }}'>{{ group }}</a>&emsp;{% endfor %}</br>
+  <h2>以项目统计:{% for project in projects %}<a href='stat?project={{ project }}'>{{ project }}</a>&emsp;{% endfor %}</br>
+  <h4>{{ year }}年{{ month }}月{{ group }}部门{{ project }}部门工时统计</h4>
   <div id="div1"><table>
     <tr><th>地区</th><th>部门</th><th>工号</th><th>姓名</th><th>职级</th><th>工时总计</th><th>总任务数</th></tr>
     {% for s in sum %}
@@ -18,7 +14,9 @@
       <td>{{ s.hours }}</td>
       <td>{{ s.tasks }}</td>
     {% endfor %}
-  </table></div></br>
+  </table>
+  总计任务<font color='red'>{{ totaltask }}</font>件，<font color='red'>{{ totalhour }}</font>小时
+  </div></br>
   <h4>详细工作记录<h4>
   <div id="div2"><table>
     <tr><th>姓名</th><th>工作类型</th><th>PMS/BUG</th><th>当前状态</th><th>项目名称</th><th>耗时</th><th>链接</th><th>详细描述</th><th>提交时间</th></tr>
@@ -33,9 +31,5 @@
       <td>{{ r.detail }}</td>
       <td>{{ r.date }}</td>
     {% endfor %}
-  </table></div></br>
-  <a href='/'>工时录入</a>
-  </center>
-  <hr/><div align="center"><font size="2">Written & Maintained by Leon. All rights reserved.</font></div>
-  </center>
-</body>
+  </table></div>
+{% endblock %}

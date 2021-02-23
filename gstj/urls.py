@@ -15,13 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.views.generic.base import RedirectView
 admin.autodiscover()
 
 from . import views
 
 urlpatterns = [
+    url(r'^favicon\.ico$', RedirectView.as_view(url=r'static/admin/img/icon-alert.svg')),
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index),
     url(r'^stat$', views.stat),
-    url(r'^doinput/$', views.doinput, name='gstj_doinput'),
+    url(r'^doinput$', views.doinput, name='gstj_doinput'),
+    url(r'^dologin$', views.dologin, name='gstj_dologin'),
+    url(r'^logout$', views.logout, name='gstj_logout'),
+    url(r'^changepwd$', views.changepwd, name='gstj_changepwd'),
 ]

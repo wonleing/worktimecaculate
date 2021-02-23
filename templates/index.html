@@ -1,24 +1,20 @@
-{% load i18n %}
-<head>
-    <title>工时录入</title>
-    <link rel="stylesheet" href="/static/admin/css/base.css" type="text/css" />
-</head>
-<body>
+{% extends "base.html" %}
+{% block pagebody %}
     <div align="center">
       <h4>工时信息录入</h4>
       <form action="{% url 'gstj_doinput' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+        <label>所属部门:&emsp;&emsp;</label><input type="text" name="group" disabled="disabled" value='{{ login_user.group }}' /></br>
         <label>工作类型:&emsp;&emsp;</label><select name="type">{% for i in typelist %}<option value ="{{ i }}">{{ i }}</option>{% endfor %}</select></br>
-        <label>提 交 人:&emsp;&emsp;</label><select name="name">{% for i in workerlist %}<option value ="{{ i.name }}">{{ i.name }}</option>{% endfor %}</select></br>
-        <label>当前状态:&emsp;&emsp;</label><select name="status">{% for i in statuslist %}<option value ="{{ i }}">{{ i }}</option>{% endfor %}</select></br>
+        <label>所属项目:&emsp;&emsp;</label><select name="project">{% for i in projectlist %}<option value ="{{ i }}">{{ i }}</option>{% endfor %}</select></br>
+        <label>完成状态:&emsp;&emsp;</label><select name="status">{% for i in statuslist %}<option value ="{{ i }}">{{ i }}</option>{% endfor %}</select></br>
         <label>PMS/BUG:&emsp;&emsp;</label><input type="text" name="taskid" /></br>
         <label>耗用时间:&emsp;&emsp;</label><input type="text" name="usedtime" /></br>
-        <label>所属项目:&emsp;&emsp;</label><input type="text" name="project" /></br>
         <label>文档链接:&emsp;&emsp;</label><input type="text" name="link" /></br>
-        <label>详细描述:</label></br><textarea rows="5" cols="35" name="detail" placeholder="type detail here..."></textarea></br>
+        <label>工作内容:</label></br><textarea rows="5" cols="35" name="detail" placeholder="type detail here..."></textarea></br>
+        <input type='hidden' name='name' value='{{ login_user.name }}' />
         <p><input type="submit" value="保存" /></p>
       </form>
-      <a href=/stat>工时统计</a>
+	本月已录入总工时：<font color='red'>{{ recorded }}</font>，本月应录入工时{{ suppose }}
     </div>
-    <br/><hr/>
-    <div align="center"><font size="2">Written & Maintained by Leon. All rights reserved.</font></div>
 </body>
+{% endblock %}
