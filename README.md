@@ -25,6 +25,12 @@ WSGIProcessGroup gstj
 WSGIScriptAlias / /home/uos_server9_58_203/code/worktimecaculate/gstj/wsgi.py
 ```
 ## run in container: To be added
+1. `git clone https://github.com/wonleing/worktimecaculate.git`  Pull source code.
+2. `cd build`   Enter the code build directory
+3. `sudo docker build . -t worktimecaculate:v1 -f Dockerfile` Use the Dockerfile in the code file to build the image
+4. `sudo docker run -d -p 80:80 -v /opt/worktimecaculate/:/opt/worktimecaculate/ --name worktimecaculate -e MYSQL_HOST=<mariadb_ip> -e MYSQL_USER=root -e MYSQL_PASSWD=deepin  worktimecaculate:v1` Start the container
+5. `cp -r * /opt/worktimecaculate `  Copy the source code to the directory
+6.  Perform initialization
 
 # DB setting and init
 recommend to use mysql/mariadb
