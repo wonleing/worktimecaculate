@@ -80,10 +80,14 @@ DATABASES = {
 #        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'beiyan',
-        'USER': 'root',
-        'PASSWORD': 'deepin',
-        'HOST': '127.0.0.1',
-        'PORT': 3306,
+ #       'USER': 'root',
+ #       'PASSWORD': 'deepin',
+ #       'HOST': '127.0.0.1',
+ #        'PORT': 3306,
+        'USER': os.environ.get("MYSQL_USER", 'root'),
+        'PASSWORD': os.environ.get("MYSQL_PASSWD", 'deepin'),
+        'HOST': os.environ.get("MYSQL_HOST", '127.0.0.1'),
+        'PORT': os.environ.get("MYSQL_PORT", '3306')
     }
 }
 
